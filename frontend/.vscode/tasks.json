@@ -1,0 +1,22 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Debug API",
+			"type": "npm",
+			"script": "debug",
+			"path": "api/",
+			"isBackground": true,
+			"problemMatcher": {
+				"pattern": {
+					"regexp": "^\b$"
+				},
+				"background": {
+					"activeOnStart": true,
+					"beginsPattern": ".*",
+					"endsPattern": ".*"
+				}
+			}
+		}
+	]
+}

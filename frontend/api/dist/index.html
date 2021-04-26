@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Predict2Tensor</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+
+  <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/skeleton.css">
+
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="images/favicon.ico">
+  <div style="backdrop-filter: blur(20px);">
+  <div style="padding-top: 10px; display: inline-block;"><h1><img src="test.png" style='vertical-align:middle; height: 90px;'><b>Predict2Tensor</b></h1> </div>
+  <nav class="navbar" style="background: WhiteSmoke;  padding-top: 10px;">
+    <button>Submit</button> 
+   <button>About</button>
+   <button>Contact</button>
+  </nav>
+</div>
+</head>
+<body style='background-image: url("images/bg.png"); background-size: cover;'>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container" >
+  <div style="background: WhiteSmoke; padding: 10px; margin-top: 15%; border-radius: 15px">
+  <div class="row" style=""><h3>Submit a protein:</h3></div> 
+  <form action="/inputhandler" method="POST">
+  <div class="row" style="margin-left: 5%; background: LightGray; padding: 10px; border-radius: 15px"> 
+  <div class="two-thirds column" >
+  <input class="u-full-width" placeholder="Give your job a name" id="jobid" name="id" required>
+
+	<h5>Upload a .FASTA file</h5> 
+	<input type="file" id="myFile" name="filename" accept=".fasta">
+	<h4>OR</h4>
+	<h5>Enter a Sequence</h5>
+	<textarea class="u-full-width" placeholder="Enter a sequence…" id="sequenceinput", name="sequence" required></textarea> 
+	     </div>
+  <div class="one-third column">
+    <h5>Enter a contact email:</h5>
+	    <input class="u-full-width" type="email" placeholder="Enter your email!" id="contactemail" name="email">
+	      <input class="button-primary" type="submit" value="Submit" style="background-color: rgba(255, 127, 80); border-color: rgba(255, 127, 80);">
+	  </div>
+
+  </div>
+</form>
+
+  </div>
+  </div>
+
+<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>
