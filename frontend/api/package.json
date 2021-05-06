@@ -6,7 +6,7 @@
 	"private": true,
 	"scripts": {
 		"debug": "sudo ts-node-dev --inspect=9229 --respawn --transpile-only src/index.ts",
-		"production": "sudo ts-node-dev --respawn --transpile-only src/index.ts"
+		"production": "npx ts-node-transpile-only src/index.ts"
 	},
 	"devDependencies": {
 		"@types/assert": "*",
