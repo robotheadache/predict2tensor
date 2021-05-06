@@ -1,23 +1,15 @@
 let Queue = require('bull');
-import { appendFile } from 'node:fs';
 import {parse} from 'querystring'
-
+var {connect, getdb} = require('./mongoconn')
 import { queryResult } from '../../src/interface';
 import { submittedQuery } from '../../src/submitQuery'
 const axios = require("axios");
-import * as fs from "fs";
-
 const nodemailer = require('nodemailer');
+var mongodb;
 
-
-var transport = nodemailer.createTransport({
-  host: "smtp.mailtrap.io",
-  port: 2525,
-  auth: {
-    user: "",
-    pass: ""
-  }
-});
+connect(() => ( mongodb = getdb() ))
+//variable declaration
+let REDIS_URL = process.env.REDIS_URL || 'redis://127.0.0.1:6379';
 
 //a list of amino acids for enumeration
 const AACodes = ['A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L',
@@ -27,7 +19,17 @@ const AACodes = ['A', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'K', 'L',
 
 const SScodes = ['H', 'B', 'E', 'G', 'I', 'T', 'S', '-', '?']
 
-let REDIS_URL = process.env.REDIS_URL || 'redis://127.0.0.1:6379';
+//configure outside objects
+var transport = nodemailer.createTransport({
+  host: "smtp.mailtrap.io",
+  port: 2525,
+  auth: {
+    user: "",
+    pass: ""
+  }
+});
+
+
 
 let workQueue = new Queue('work', REDIS_URL);
 export function queueJob(postData:string){
@@ -64,7 +66,7 @@ export function processData(task:submittedQuery){
   let chArray = []
   let confidenceScores = []
   //send it off!
-  axios.post('http://localhost:8501/v1/models/goodssmodel:predict', data)
+  axios.post('http://localhost:8501/v1/models/ssmodel:predict', data)
   .then(response => {
     //stores our raw output
     let nakedArray = response.data.predictions[0]
@@ -98,21 +100,17 @@ export function processData(task:submittedQuery){
     let processEnd =  Date.now() - processStart
     console.log(processEnd)
     //console.log(finalresult)
-  
-    try {
-      fs.writeFileSync("../api/queries/"+finalresult.id+".json", JSON.stringify(finalresult));
-      console.log("JSON data is saved.");
-
+    mongodb.collection("results").insertOne(finalresult, function(err, res) {
+        if (err) throw err;
+        console.log("1 document inserted");
+      });
     
-    }
-    catch (error) {
-      console.error(err);
-    };
+ 
     const message = {
       from: 'webmaster@predict2tensor.com',
       to: task.email,
       subject: "Your job, " + finalresult.id+" is complete!",
-      text: ("This is just an update that your query, " + finalresult.id +", submitted at " + finalresult.submitted+  ", is complete. You can view it at localhost/results?query=" + finalresult.id + ".")
+      text: ("This is just an update that your query, " + finalresult.id +", submitted at " + finalresult.submitted+  ", is complete. You can view it at predict2tensor.com/results?query=" + finalresult.id + ".")
     }
     transport.sendMail(message, function(err, info) {
       if (err) {

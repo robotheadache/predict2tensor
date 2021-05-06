@@ -7,6 +7,7 @@ import { stringify } from 'querystring'
 import {queueJob} from './server'
 
 
+
 let server = createServer()
 
 // Log to console on startup
@@ -35,12 +36,12 @@ let server = createServer()
 				//add the request to a bull queue, then catch the unique identifier
 				let parsedResponse = queueJob(body);
 				//give the browser a waiting page.
-				respondRedirect(res, "/submitted?query="+parsedResponse)
+				respondRedirect(res, "/submitted?id="+parsedResponse)
 			});
 				}
 	} else if (info.pathname?.endsWith(".json")) {
 
-		respondJSONFile(res, "queries/"+info.pathname);
+		respondJSONFile(res, info.pathname);
 	}
 	else if (info.pathname === '/results') {
 		respondFile(res, 'results.html');

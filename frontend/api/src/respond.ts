@@ -4,6 +4,9 @@ import { ServerResponse, STATUS_CODES } from 'http'
 import { extname } from 'path'
 import { queryResult } from '../../src/interface'
 import { setHeaders } from './html'
+var {connect, getdb} = require('./mongoconn')
+var mongodb;
+connect(() => ( mongodb = getdb() ))
 
 /** Respond with a generic error response. */
 export function respondError(res: ServerResponse, code: number, message: string) {
@@ -18,14 +21,17 @@ export function respondJSON<T>(res: ServerResponse, object: T) {
 	res.end(JSON.stringify(object, null, ' '))
 }
 
-/** Respond with a JSON file on disk. */
+/** Respond with a JSON file stored in the object database. */
 export function respondJSONFile<T>(res: ServerResponse, path: string) {
+	path = path.replace(".json","").replace("/","");
 	var dataObject : queryResult = {};
-	if (existsSync(path)){  
-		dataObject = JSON.parse(fs.readFileSync(path).toString());
-	}
-	setHeaders(res, 'json')
-	res.end(JSON.stringify(dataObject, null, ' '))
+	mongodb.collection("results").findOne({'id' : path},{projection: {_id:0}}, function(err, result) {
+		if (err) throw err;
+		dataObject = result;
+		setHeaders(res, 'json');
+		res.end(JSON.stringify(dataObject, null, ' '));
+	  });
+
 
 }
 
@@ -56,7 +62,7 @@ export function respondText(res: ServerResponse, message: string) {
 /** Respond with a redirect to a new url (for when index.ts has fancy stuff to do) **/
 export function respondRedirect(res: ServerResponse, path: string){
 	res.writeHead(307,
-		{Location: 'http://predict2tensor.com'+path}
+		{Location: path}
 	  );
 	  res.end();	  
 
