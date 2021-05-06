@@ -5,8 +5,7 @@
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <script src="/submitted.js"></script>
-  <title>Submitted your query!</title>
+  <title>About</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -28,8 +27,8 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/favicon.ico">
   <div style="backdrop-filter: blur(20px);">
-    <div style="padding-top: 10px; display: inline-block;"><h1><img src="test.png" style='vertical-align:middle; height: 90px;'><b>Predict2Tensor</b></h1> </div>
-    <nav class="navbar" style="background: WhiteSmoke;  padding-top: 10px;">
+  <div style="padding-top: 10px; display: inline-block;"><h1><img src="test.png" style='vertical-align:middle; height: 90px;'><b>Predict2Tensor</b></h1> </div>
+  <nav class="navbar" style="background: WhiteSmoke;  padding-top: 10px;">
     <button onclick="window.location.href='/index.html';">Submit</button> 
     <button onclick="window.location.href='/about.html';">About</button>
     <button>Contact</button>
@@ -43,15 +42,16 @@
   <div class="container" >
   <div style="background: WhiteSmoke; padding: 10px; margin-top: 5%; border-radius: 15px; width: 110%; margin-left: -5%;">
   <div class="row" style="">
-  <div class="column" style="">
-  <div class="row" style="text-align: center;">
-   </div> 
-   <submitted-page></submitted-page>
-  </div>
-  </div> 
+
+  <h2><b>About</b></h2>
+
+  Predict2Tensor is a secondary structure prediction server based on a Bidirectional LSTM network developed using Keras/Tensorflow. 
+  It demonstrates an average accuracy of 86% while having queries which take seconds or less due to the lack of any computationally expensive homology searches. 
+  Additionally, it is entirely open source software, (though it does use MongoDB!) and can be viewed at the below repository.
+    <a href="https://github.com/robotheadache/predict2tensor"><img src="https://gh-card.dev/repos/robotheadache/predict2tensor.svg"></a>
+</div> 
   </div>
 </div>
-
 <!-- End Document
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 </body>
