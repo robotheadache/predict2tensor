@@ -53,7 +53,6 @@ export function queueJob(postData:string){
     parsedData.submitted = new Date();
     //add the object to the queue
     workQueue.add(parsedData);
-    console(parsedData)
     return parsedData.id
 
     

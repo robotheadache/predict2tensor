@@ -1,3 +1,5 @@
+import { mongo } from "mongoose";
+
 //This file can be imported as to generate a reusable connection to the mongoDB results database.
 var MongoClient = require('mongodb').MongoClient;
 var mongoURL = "mongodb://localhost:27017/";
@@ -27,7 +29,9 @@ const connect = (callback) => {
                                 mongodb.createCollection("results")
 
                         }
+                
                      });
+                mongodb.collection("results").createIndex( { "submitted": 1 }, { expireAfterSeconds: 60*60*24*7 } )
                 console.log("Mongo Connected!");
                 callback()
                 });
