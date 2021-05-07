@@ -1,7 +1,6 @@
 import { customElement, html, internalProperty, query } from 'lit-element'
 import { Component } from '../src/component'
 import { queryResult } from "../../src/interface"
-import { nothing } from 'lit-html'
 //Confidence = MLP - \frac{\sum AP -MLP}{\left | AP \right | -1} * 100%
 
 @customElement('results-page')

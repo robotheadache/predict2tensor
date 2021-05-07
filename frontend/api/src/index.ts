@@ -2,8 +2,6 @@ import { createServer, IncomingMessage, ServerResponse } from 'http'
 import { parse } from 'url'
 import { cfg } from './config'
 import { respondFile, respondJSON, respondJSONFile, respondText, respondRedirect } from './respond'
-import { queryResult } from '../../src/interface'
-import { stringify } from 'querystring'
 import {queueJob} from './server'
 
 

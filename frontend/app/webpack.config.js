@@ -2,9 +2,9 @@ let path = require('path')
 
 let common = {
 	entry: {
-		results: './cmp/index.ts',
+		results: './cmp/results.ts',
 		submitted: './cmp/submitted.ts',
-
+		submit:		'./cmp/submit.ts'
 	},
 	output: {
 		filename: '[name].js',

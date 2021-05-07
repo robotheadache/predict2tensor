@@ -6,6 +6,8 @@ var {connect, getdb} = require('./mongoconn')
 import { queryResult } from '../../src/interface';
 import { submittedQuery } from '../../src/submitQuery'
 const axios = require("axios");
+import { SMTPkeys } from './config'
+
 const nodemailer = require('nodemailer');
 var mongodb;
 
@@ -24,11 +26,11 @@ const SScodes = ['H', 'B', 'E', 'G', 'I', 'T', 'S', '-', '?']
 
 //configure outside objects
 var transport = nodemailer.createTransport({
-  host: "smtp.mailtrap.io",
-  port: 2525,
+  host: SMTPkeys.host,
+  port: SMTPkeys.port,
   auth: {
-    user: "",
-    pass: ""
+    user: SMTPkeys.user,
+    pass: SMTPkeys.pass
   }
 });
 
@@ -51,6 +53,7 @@ export function queueJob(postData:string){
     parsedData.submitted = new Date();
     //add the object to the queue
     workQueue.add(parsedData);
+    console(parsedData)
     return parsedData.id
 
     
