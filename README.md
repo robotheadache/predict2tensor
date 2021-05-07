@@ -3,7 +3,9 @@ a bidirectional LSTM neural network based server (front and backend) written wit
 
 ## Folders
 `frontend` : The source for the website serving the model.
+
 `ssmodel` : The saved prediction model.
+
 `development` : python pickles, jupyter notebooks, and scripts needed in order to create the model.
 
 ## Prerequisites
