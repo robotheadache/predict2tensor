@@ -11,9 +11,13 @@ The python pickle files required to run this yourself are too large to post on g
 
 
 ## Prerequisites
+You must install:
 Redis
+
 MongoDB
+
 Docker
+
 
 Docker image can be configured with 
 
