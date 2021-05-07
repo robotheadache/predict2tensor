@@ -6,7 +6,9 @@ a bidirectional LSTM neural network based server (front and backend) written wit
 
 `ssmodel` : The saved prediction model.
 
-`development` : python pickles, jupyter notebooks, and scripts needed in order to create the model.
+`development` :jupyter notebooks and scripts needed in order to create the model.
+The python pickle files required to run this yourself are too large to post on github. Instead, they can be found at <url here>
+
 
 ## Prerequisites
 Redis
@@ -22,3 +24,4 @@ docker run -p 8501:8501 \
 ```
 
 To run the server, use `npm install` in `frontend/api` and then `npm run production`
+
