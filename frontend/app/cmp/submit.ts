@@ -3,8 +3,8 @@ import { customElement, html, internalProperty, query, LitElement } from 'lit-el
 
 @customElement('submit-page')
 export class resultsPage extends LitElement {
-	@internalProperty() textbox = '';
-	@internalProperty() file: any;
+	@internalProperty() textbox = ''; //allows us to update the text in the sequence box
+	@internalProperty() file: any; //placeholder for user's file
 
 	async connectedCallback(){
 		super.connectedCallback()
@@ -41,26 +41,26 @@ export class resultsPage extends LitElement {
 	  
 `
 	}
+	/**
+	 * A nice way to fit file uploads into the schema. We use the client's browser to turn the file into a sequence string, and slide it into the text box.
+	 */
 	onUpload() {
-		this.file = this.renderRoot.getElementById("fastaFile").files[0];
+		this.file = this.renderRoot.getElementById("fastaFile").files[0]; //assign the file to the variable
 
-		console.log(this.file)
-
-		var reader = new FileReader();
+		var reader = new FileReader(); //create an object to parse the file
 		reader.onload = (e) => {
-			let initialString = e.target.result.split(/\r?\n/);
-			let goodString = ""
+			let initialString = e.target.result.split(/\r?\n/); //turn the stringified file into an array, where each index is a new like
+			let goodString = "" //placeholder for lines we want to keep
 			for (var i in initialString){
 				if (initialString[i].startsWith(">") == false){
-					goodString = goodString + initialString[i]
+					goodString = goodString + initialString[i] //if we find a string that doesn't have an arrow (so, not a title line), we add it to goodString (this is in case it's multiple lines)
 				}
 			
 			}
-			this.textbox =goodString
+			this.textbox = goodString //then assign the file to the text box.
 		});
 		reader.readAsText(this.file);
 
-		this.renderRoot.getElementById("fastaFile").files = null;
 		}
 		
 	

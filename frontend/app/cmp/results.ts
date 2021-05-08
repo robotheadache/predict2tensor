@@ -17,23 +17,28 @@ export class resultsPage extends Component {
 		
 		console.log("query = "+protein)
 		
+		//so long as an ID was passed
 		if (protein != null) {
-		
-			let test = await fetch(protein+".json")
-		
-			this.json = await test.json();
+			
+			//wait for the server to send us the JSON file
+			let file = await fetch(protein+".json")
+	
+			this.json = await file.json();
+			//Here, we build a position marker. We start with a sequence of stars as long as the protein.
 			this.lengthMarkers = '*'.repeat(this.json.sequence.length)
+			//for each position, we give it a span with text highlight, but the alpha channel is just the confidence.
 			for (let i =0; i < this.json.confidence?.length; i++){
 				let ssElement = this.json.secStruc[i];
 				let ssConfidence = this.json.confidence[i];
 				this.secStrucTemplates.push(html`<span style='background: rgba(255, 127, 80, ${ssConfidence});'>${ssElement}</span>`);
 			
 				let indexBump = i+1;
-
+				//If this iteration is an axis label, we carve out a splot in the sequence for a number.
 				if (indexBump %10 === 0){
 					this.lengthMarkers = this.lengthMarkers.slice(0, i) + indexBump + this.lengthMarkers.slice(i+indexBump.toString.length) 
 				}
 			}
+			//to be honest, I have no idea why, but the markers have  to be truncated to protein length because even with the carving out it still runs off a little.
 			this.lengthMarkers =this.lengthMarkers.slice(0, this.json.sequence.length)
 		}
 	}
