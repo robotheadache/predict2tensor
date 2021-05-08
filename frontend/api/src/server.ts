@@ -2,6 +2,7 @@
 
 let Queue = require('bull');
 import {parse} from 'querystring'
+import { resultsPage } from '../../app/cmp/submit';
 var {connect, getdb} = require('./mongoconn')
 import { queryResult } from '../../src/interface';
 import { submittedQuery } from '../../src/submitQuery'
@@ -48,7 +49,7 @@ export function queueJob(postData:string){
   //turn the text into a json object
     let parsedData:submittedQuery = parse(postData);
     //sanitize our input into a valid string
-    parsedData.id = parsedData.id.replace(/ /g, '_') + "_" +Math.random().toString(36).substr(2, 4)
+      parsedData.id = parsedData.id.replace(/ /g, '_') + "_" +Math.random().toString(36).substr(2, 4)
     //create a date marker
     parsedData.submitted = new Date();
     //add the object to the queue
